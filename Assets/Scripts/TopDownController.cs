@@ -61,6 +61,10 @@ public class TopDownController : MonoBehaviour
     }
     void Update()
     {
+        Vector3 camPos = transform.position;
+        camPos.z = -10f;
+        cam.transform.position = camPos;
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
