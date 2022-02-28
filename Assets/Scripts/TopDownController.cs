@@ -30,9 +30,11 @@ public class TopDownController : MonoBehaviour
         visionLight = transform.Find("VisionLight").GetComponent<Light2D>();
 
         // Weirdly this adds 1.47 to whatever interactionRange is, but hohum, it works
-        Vector3 p = anchor.transform.position;
+        // UPDATE - It's taking the worldspace position, so if player wakes at y8 it'll add that
+        Vector3 p = anchor.transform.localPosition;
+        Debug.Log(p);
         p.y = interactionRange;
-        anchor.transform.position = p;
+        anchor.transform.localPosition = p;
     }
 
     void HandleInteraction(Interactable interactable)
@@ -74,18 +76,19 @@ public class TopDownController : MonoBehaviour
         Vector2 origin = new Vector2(transform.position.x, transform.position.y);
         Vector2 direction = (anchor.transform.position - transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, interactionRange);
-        
-
+        Debug.DrawRay(origin, direction, Color.green);
         bool successfulHit = false;
 
         // If it hits something w a 2d collider:
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.tag != "Player")
         {
+            //Debug.Log("HIT!: "+hit.collider.tag);
             // If the object is interactable, handle it.
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if(interactable != null)
             {
                 HandleInteraction(interactable);
+                //Debug.Log(interactable.GetDescription());
                 interactionText.text = interactable.GetDescription();
                 successfulHit = true;
             }
@@ -115,7 +118,6 @@ public class TopDownController : MonoBehaviour
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
-
 
         Debug.DrawLine(transform.position, anchor.transform.position, Color.red);
     }

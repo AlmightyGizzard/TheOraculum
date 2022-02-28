@@ -5,17 +5,19 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class LightSwitch : Interactable
 {
-    public Light2D m_light;
+    public List<Light2D> m_lights;
     public bool isOn;
 
     private void Start()
     {
-        UpdateLight();
+        UpdateLights();
     }
 
-    void UpdateLight()
+    void UpdateLights()
     {
-        m_light.enabled = isOn;
+        foreach(Light2D light in m_lights){
+            light.enabled = isOn;
+        }
     }
 
     public override string GetDescription()
@@ -27,6 +29,6 @@ public class LightSwitch : Interactable
     public override void Interact()
     {
         isOn = !isOn;
-        UpdateLight();
+        UpdateLights();
     }
 }
