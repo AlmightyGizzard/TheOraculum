@@ -202,7 +202,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
 
         public bool volumeIntensityEnabled { get => m_LightVolumeIntensityEnabled; set => m_LightVolumeIntensityEnabled = value; }
         public Sprite lightCookieSprite { get { return m_LightType != LightType.Point ? m_LightCookieSprite : m_DeprecatedPointLightCookieSprite; } }
-        public float falloffIntensity => m_FalloffIntensity;
+        public float falloffIntensity { get => m_FalloffIntensity; set => m_FalloffIntensity = value; }
 
         [Obsolete]
         public bool alphaBlendOnOverlap { get { return m_OverlapOperation == OverlapOperation.AlphaBlend; } }
