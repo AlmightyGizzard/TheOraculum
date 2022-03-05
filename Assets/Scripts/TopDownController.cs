@@ -88,7 +88,7 @@ public class TopDownController : MonoBehaviour
             if(interactable != null)
             {
                 HandleInteraction(interactable);
-                Debug.Log(interactable.GetDescription());
+                //Debug.Log(interactable.GetDescription());
                 interactionText.text = interactable.GetDescription();
                 successfulHit = true;
             }

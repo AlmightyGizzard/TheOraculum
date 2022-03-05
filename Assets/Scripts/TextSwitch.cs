@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class TextSwitch : Interactable
 {
+    public GameObject UI_Panel;
+    private string text;
+    public bool reading = false;
     public override string GetDescription(){
         return "Hold [E] to read the passage.";
     }
 
     public override void Interact(){
         Debug.Log("Reading!");
+        reading = true;
+    }
+
+    public void FixedUpdate()
+    {
+        UI_Panel.SetActive(reading);
+        reading = false;
     }
 }
