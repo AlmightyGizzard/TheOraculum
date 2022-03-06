@@ -11,7 +11,7 @@ public class TextSwitch : Interactable
         return "Hold [E] to read the passage.";
     }
 
-    public override void Interact(){
+    public override void Interact(bool alt = false){
         Debug.Log("Reading!");
         reading = true;
     }

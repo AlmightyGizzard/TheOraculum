@@ -40,12 +40,17 @@ public class TopDownController : MonoBehaviour
     void HandleInteraction(Interactable interactable)
     {
         KeyCode key = KeyCode.E;
+        KeyCode altKey = KeyCode.R;
         switch (interactable.interactionType)
         {
             case Interactable.InteractionType.Click:
                 if (Input.GetKeyDown(key))
                 {
                     interactable.Interact();
+                }
+                else if (Input.GetKeyDown(altKey))
+                {
+                    interactable.Interact(true);
                 }
                 break;
             case Interactable.InteractionType.Read:

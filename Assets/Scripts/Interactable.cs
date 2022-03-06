@@ -11,5 +11,5 @@ public abstract class Interactable : MonoBehaviour
     public InteractionType interactionType;
 
     public abstract string GetDescription();
-    public abstract void Interact();
+    public abstract void Interact(bool alt = false);
 }

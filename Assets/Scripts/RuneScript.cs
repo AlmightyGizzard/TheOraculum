@@ -8,6 +8,7 @@ public class RuneScript : Interactable
     public TextMeshPro text;
     public float glow = 0f;
     public float glowDecay = 0.05f;
+    public RuneSystem system;
     string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public int currentLetter; 
 
@@ -20,23 +21,32 @@ public class RuneScript : Interactable
         return "Press [E] to scrawl.";
     }
 
-    public override void Interact()
+    public override void Interact(bool alt = false)
     {
-        Debug.Log("Reading!");
-        if(currentLetter >= st.Length-1)
+        if (alt)
         {
-            currentLetter = 0;
+            system.Guess();
         }
         else
         {
-            currentLetter++;
+            Debug.Log("Reading!");
+            if (currentLetter >= st.Length - 1)
+            {
+                currentLetter = 0;
+            }
+            else
+            {
+                currentLetter++;
+            }
+            text.text = st[currentLetter].ToString();
         }
-        text.text = st[currentLetter].ToString();
     }
 
     // Start is called before the first frame update
     void Awake()
     {
+        system = GetComponentInParent<RuneSystem>();
+        st = system.st;
         char value = char.Parse(text.text);
         currentLetter = st.IndexOf(value);
     }

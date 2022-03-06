@@ -12,7 +12,7 @@ public class RuneSystem : MonoBehaviour
 {
     public List<GameObject> runes;
     public GameObject trigger;
-    string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Sequence sequence;
 
     public Sequence GenerateSequence()
@@ -31,15 +31,32 @@ public class RuneSystem : MonoBehaviour
         }
         return result;
     }
+
+
+    public void Guess()
+    {
+        bool correct = true;
+        string answer = "COCKS";
+        int index = 0;
+        foreach(GameObject g in runes)
+        {
+            char guessLetter = char.Parse(g.GetComponentInChildren<TextMeshPro>().GetParsedText());
+            if(answer[index] != guessLetter)
+            {
+                Debug.Log(guessLetter + " is not equal to " + answer[index]);
+                correct = false;
+            }
+            index++;
+        }
+        if (correct)
+        {
+            Debug.Log("Correct!!!");
+        }
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
         sequence = GenerateSequence();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
