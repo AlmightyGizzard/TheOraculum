@@ -11,6 +11,8 @@ public class Sequence
 public class RuneSystem : MonoBehaviour
 {
     public List<GameObject> runes;
+    public List<string> words;
+    public string answer;
     public GameObject trigger;
     public string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Sequence sequence;
@@ -36,12 +38,21 @@ public class RuneSystem : MonoBehaviour
     public void Guess()
     {
         bool correct = true;
-        string answer = "COCKS";
         int index = 0;
         foreach(GameObject g in runes)
         {
-            char guessLetter = char.Parse(g.GetComponentInChildren<TextMeshPro>().GetParsedText());
-            if(answer[index] != guessLetter)
+            TextMeshPro letterText = g.GetComponentInChildren<TextMeshPro>();
+            char guessLetter = char.Parse(letterText.GetParsedText());
+
+            if(answer[index] == guessLetter)
+            {
+                letterText.color = Color.green;
+            }
+            else if (answer.Contains(guessLetter.ToString()))
+            {
+                letterText.color = Color.yellow;
+            }
+            else
             {
                 Debug.Log(guessLetter + " is not equal to " + answer[index]);
                 correct = false;
@@ -58,5 +69,6 @@ public class RuneSystem : MonoBehaviour
     void Start()
     {
         sequence = GenerateSequence();
+        answer = words[Random.Range(0, words.Count)];
     }
 }

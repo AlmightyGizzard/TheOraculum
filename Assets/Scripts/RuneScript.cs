@@ -38,6 +38,7 @@ public class RuneScript : Interactable
             {
                 currentLetter++;
             }
+            text.color = Color.black;
             text.text = st[currentLetter].ToString();
         }
     }
