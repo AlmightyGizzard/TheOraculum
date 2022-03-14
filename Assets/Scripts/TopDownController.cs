@@ -19,6 +19,8 @@ public class TopDownController : MonoBehaviour
     public float interactionRange = 2.5f;
 
     public TMPro.TextMeshProUGUI interactionText;
+    public GameObject read_Panel;
+    public bool reading = false;
 
     Vector2 movement;
     Vector2 mousePos;
@@ -100,6 +102,8 @@ public class TopDownController : MonoBehaviour
         }
 
         if (!successfulHit) interactionText.text = "";
+        read_Panel.SetActive(reading);
+        reading = false;
     }
 
     // Update is called once per frame

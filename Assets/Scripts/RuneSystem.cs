@@ -51,6 +51,7 @@ public class RuneSystem : MonoBehaviour
             else if (answer.Contains(guessLetter.ToString()))
             {
                 letterText.color = Color.yellow;
+                correct = false;
             }
             else
             {
