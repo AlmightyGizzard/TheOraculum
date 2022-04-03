@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityTracery;
 
+
 public class TextSwitch : Interactable
 {
 
@@ -44,7 +45,8 @@ public class TextSwitch : Interactable
         ""[school:Necromancer][specialty:arcane manufacture, advanced necrosis, corpse magic][schoolPronoun:necromancer, reanimator, occultist]"",
         ""[school:Transmutation][specialty:communication, bodily adaption, dunamancy, alchemy][schoolPronoun:alchemist, transmuter]""],
         
-        ""sequence"":[""#arcanist.capitalise# was a powerful #schoolPronoun#""], 
+
+        ""sequence"":[""#arcanist.capitalise# was a powerful #school#""], 
         ""origin"":[""#[#setPronouns#][#setSchool#][arcanist:#name#]sequence#""]
     }";
     TraceryGrammar grammar = new TraceryGrammar(eventString);
@@ -57,7 +59,7 @@ public class TextSwitch : Interactable
     }
 
     public override void Interact(bool alt = false){
-        Debug.Log("Reading!");
+        //Debug.Log("Reading!");
         UI_Panel.GetComponentInChildren<TextMeshProUGUI>().text = text;
         player.reading = true;
     }
@@ -65,8 +67,18 @@ public class TextSwitch : Interactable
     // On awake, use tracery to generate a text string.
     public void Awake()
     {
+        Arcanist testa = new Arcanist(1, grammar);
+        
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>();
-        text = grammar.Generate();
+        //text = grammar.Generate();
+        //grammar.PushAction("[arcanist:#name#]", testa.they, testa.them, testa.their, testa.theirs);
+        text = grammar.Parse(string.Format("#[arcanist:{0}][heroThey:{1}][them:{2}][their:{3}][theirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}]sequence#", testa.name, testa.they, testa.them, testa.their, testa.theirs, testa.school, testa.specialty, testa.schoolPronoun));
+
+        //text = grammar.Parse(string.Format("#[setPronoundssequence#", testa.));
+        Debug.Log(testa.name + testa.they);
+        Debug.Log(testa.name + testa.schoolPronoun);
+        Debug.Log(testa.name + testa.schoolPronoun);
+        Debug.Log(text);
     }
 
     public void FixedUpdate()
