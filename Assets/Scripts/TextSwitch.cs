@@ -29,7 +29,25 @@ public class TextSwitch : Interactable
         ""#aGive# - #aGoal# - #aTo# - #aMeans# - #aPlace#"",
         ""#aDeity# - #aGive# - #aMeans# - #aTo# - #aGoal#""]
     }";
-    TraceryGrammar grammar = new TraceryGrammar(grammarString);
+
+    static string eventString = @"
+    {
+        ""name"":[""Rickets"", ""Zachary"", ""Fayra"", ""Allura"", ""Ashton""],
+        ""setPronouns"":[""[heroThey:they][heroThem:them][heroTheir:their][heroTheirs:theirs]"",""[heroThey:she][heroThem:her][heroTheir:her][heroTheirs:hers]"",""[heroThey:he][heroThem:him][heroTheir:his][heroTheirs:his]""]
+        ""setSchool"":[
+        ""[school:Abjuration][specialty:shield magic, enhancement spells, planar magic][schoolPronoun:abjuror]"",
+        ""[school:Conjuration][specialty:elemental manipulation, summoning, teleportation][schoolPronoun:conjurer, summoner, planeswalker]"",
+        ""[school:Divination][specialty:analysis, communion][schoolPronoun:diviner, seer, soothsayer]"",
+        ""[school:Enchantment][specialty:control spells, coercion magic, artifice][schoolPronoun:artificer, enchanter, spellbinder]"",
+        ""[school:Evocation][specialty:medicine, spell sculpting, metamagic][schoolPronoun:healer, elementalist, evoker]"",
+        ""[school:Illusion][specialty:projection][schoolPronoun:illusionist, magician]"",
+        ""[school:Necromancer][specialty:arcane manufacture, advanced necrosis, corpse magic][schoolPronoun:necromancer, reanimator, occultist]"",
+        ""[school:Transmutation][specialty:communication, bodily adaption, dunamancy, alchemy][schoolPronoun:alchemist, transmuter]""],
+        
+        ""sequence"":[""#arcanist.capitalise# was a powerful #schoolPronoun#""], 
+        ""origin"":[""#[#setPronouns#][#setSchool#][arcanist:#name#]sequence#""]
+    }";
+    TraceryGrammar grammar = new TraceryGrammar(eventString);
     public GameObject UI_Panel;
     private TopDownController player;
     public string text;

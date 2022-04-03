@@ -8,7 +8,8 @@ public class TopDownController : MonoBehaviour
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
-    [SerializeField]
+    // the anchor is a simple child of the player sprite, letting us ensure
+    // the player is facing the right direction when rotating.
     private GameObject anchor;
     public Camera cam;
 
@@ -70,6 +71,7 @@ public class TopDownController : MonoBehaviour
     }
     void Update()
     {
+        // Set the camera to follow the player, centred on them at all times.
         Vector3 camPos = transform.position;
         camPos.z = -10f;
         cam.transform.position = camPos;
@@ -79,7 +81,7 @@ public class TopDownController : MonoBehaviour
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
-        // Draw a line from the player to the mouse position?
+        // Draw a line from the player to the mouse position - visible in scene
         Vector2 origin = new Vector2(transform.position.x, transform.position.y);
         Vector2 direction = (anchor.transform.position - transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, interactionRange);
@@ -128,6 +130,8 @@ public class TopDownController : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
 
+        // Draw a line betwixt the anchor and the player - this is in red so we can see both the 
+        // line determining where the player is looking and the line checking for collisions.
         Debug.DrawLine(transform.position, anchor.transform.position, Color.red);
     }
 }
