@@ -12,18 +12,26 @@ public abstract class Person : MonoBehaviour
     public Person(int id, TraceryGrammar tg){
         this.id = id;
         name = tg.ResolveSymbol("#name#");
+        
+        // Future Dom here with a bitchin' solution - use the parse command to produce a set of properties
+        // together, then print each of those properties in sequence during construction and pull from
+        // the resulting string. This can be done for subclasses whenever additional compound properties 
+        // are needed too!
+        string pronounSet = "[#setPronouns#] #heroThey# #heroThem# #heroTheir# #heroTheirs#";
+        string result = tg.Parse(pronounSet);
+        they = result.Split(' ')[1];
+        them = result.Split(' ')[2];
+        their = result.Split(' ')[3];
+        theirs = result.Split(' ')[4];
 
         // For future Dom - the fact that pronouns are in a nested Tracery unit
         // screws up the assignment of each of the 4 variants. 
         // I THINK .PushAction can solve this by resolving setPronouns and assigning
         // the results of each to a different property, like a multiples version of
         // resolveSymbol. No docs on it though, so who knows.
-        //string[3] pronouns = tg.PushAction("#setPronouns#");
-        they = tg.ResolveSymbol("#setPronouns#");    
-        them = tg.ResolveSymbol("#heroThem#");
-        their = tg.ResolveSymbol("#heroTheir#");
-        theirs = tg.ResolveSymbol("#heroTheirs#");
-        
+        //tg.PushAction("#setPronouns#", they, them, their, theirs);
+
+
 
     }
 }
@@ -34,8 +42,10 @@ public class Arcanist : Person
 
     public Arcanist(int id, TraceryGrammar tg):base(id, tg)
     {
-        school = tg.ResolveSymbol("#school#");
-        specialty = tg.ResolveSymbol("#specialty#");
-        schoolPronoun = tg.ResolveSymbol("#schoolPronoun#");
+        string arcanistProperties = "[#setSchool#] #school# #specialty# #schoolPronoun#";
+        string results = tg.Parse(arcanistProperties);
+        school = results.Split(' ')[1];
+        specialty = results.Split(' ')[2];
+        schoolPronoun = results.Split(' ')[3];
     }
 }
