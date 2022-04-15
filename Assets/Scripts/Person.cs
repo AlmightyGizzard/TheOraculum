@@ -18,7 +18,7 @@ public abstract class Person : MonoBehaviour
         // I THINK .PushAction can solve this by resolving setPronouns and assigning
         // the results of each to a different property, like a multiples version of
         // resolveSymbol. No docs on it though, so who knows.
-        string[3] = tg.PushAction("#setPronouns#");
+        //string[3] pronouns = tg.PushAction("#setPronouns#");
         they = tg.ResolveSymbol("#setPronouns#");    
         them = tg.ResolveSymbol("#heroThem#");
         their = tg.ResolveSymbol("#heroTheir#");
