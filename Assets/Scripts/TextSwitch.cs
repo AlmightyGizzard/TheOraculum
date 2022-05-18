@@ -68,7 +68,7 @@ public class TextSwitch : Interactable
         ""sequence"":[
             ""#archivist.capitalise# was a powerful #schoolPronoun# specialising in #specialty#. #heroThey# went for a walk to see the head of #school# where #heroTheir# results were being released."",
             ""The powerful #schoolPronoun# known as #archivist.capitalise# was preparing to take on the day."",
-            ""#archivist# the #title# discovered an ancient spell - #heroThey# named it the #aVia# #aMethod# and dedicated it to the god #aDeity#"",
+            ""#archivist# the #position# discovered an ancient spell - #heroThey# named it the #aVia# #aMethod# and dedicated it to the god #aDeity#"",
             ""An artifact named the #anArtifact# was recovered by #archivist#, it contained a key to unlocking the secrets of the #aTarget#"",
             ""The cult of #aDeity# known only as the #aCult# was founded by #archivist# at the age of #age#"",
             ""Archivist #archivist# gained the title of Chief #position# after aiding #name.capitalise# and #name.capitalise# in the banishing of #aDeity# from the mortal plane."",
@@ -103,9 +103,10 @@ public class TextSwitch : Interactable
         text = testa.events[0];
         //Debug.Log(grammar.Parse(text));
 
+        Debug.Log(testa.schoolPronoun);
         Debug.Log(testa.school);
         Debug.Log(testa.specialty);
-        Debug.Log(testa.schoolPronoun);
+        
 
         for (int i = 0; i < testa.events.Count; i++)
         {

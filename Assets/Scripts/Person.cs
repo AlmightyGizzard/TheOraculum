@@ -45,10 +45,10 @@ public class Arcanist : Person
     public Arcanist(int id, TraceryGrammar tg, int numEvents=5):base(id, tg, numEvents)
     {
         string arcanistProperties = "[#setSchool#] #school# #specialty# #schoolPronoun#";
-        string results = tg.Parse(arcanistProperties);
-        school = results.Split(' ')[1];
-        specialty = results.Split(' ')[2];
-        schoolPronoun = results.Split(' ')[3];
+        string result = tg.Parse(arcanistProperties);
+        school = result.Split(' ')[1];
+        specialty = result.Split(' ')[2];
+        schoolPronoun = result.Split(' ')[3];
 
         for (int i = 0; i < numEvents; i++)
         {
