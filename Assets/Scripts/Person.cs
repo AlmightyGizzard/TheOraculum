@@ -8,8 +8,10 @@ public abstract class Person : MonoBehaviour
     int id; 
     public string name, they, them, their, theirs;
     public List<string> coreProperties;
+    public List<string> events;
 
-    public Person(int id, TraceryGrammar tg){
+    public Person(int id, TraceryGrammar tg, int numEvents=5){
+        events = new List<string>();
         this.id = id;
         name = tg.ResolveSymbol("#name#");
         
@@ -40,12 +42,20 @@ public class Arcanist : Person
 {
     public string school, specialty, schoolPronoun;
 
-    public Arcanist(int id, TraceryGrammar tg):base(id, tg)
+    public Arcanist(int id, TraceryGrammar tg, int numEvents=5):base(id, tg, numEvents)
     {
         string arcanistProperties = "[#setSchool#] #school# #specialty# #schoolPronoun#";
         string results = tg.Parse(arcanistProperties);
         school = results.Split(' ')[1];
         specialty = results.Split(' ')[2];
         schoolPronoun = results.Split(' ')[3];
+
+        for (int i = 0; i < numEvents; i++)
+        {
+            string newEvent = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}] #sequence#", name, they, them, their, theirs, school, specialty, schoolPronoun));
+            //Debug.Log(newEvent);
+            events.Add(newEvent);
+        }
+
     }
 }
