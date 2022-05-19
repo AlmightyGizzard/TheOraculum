@@ -5,32 +5,9 @@ using TMPro;
 using UnityTracery;
 
 
-public class TextSwitch : Interactable
+
+public class HistoryManager : MonoBehaviour
 {
-
-    static string grammarString = @"
-    {
-        ""origin"":[""#sequence#""],
-
-        ""aTarget"":[""body"", ""mind"", ""self"", ""soul"", ""being""],
-        ""aMeans"":[""magus"", ""medeis"", ""veneficum"", ""praecantatio"", ""devotio""],
-        ""aDeity"":[""Ioun"", ""Pelor"", ""Asmodeus"", ""Mephistopheles"", ""Vecna"", ""Odin"", ""Hinch""],
-        ""aMethod"":[""#aMeans#"", ""#aDeity#""],
-        ""aGoal"":[""subterlabor"", ""evolo"", ""fugio"", ""profugio"", ""defugio"", ""excido"", ""ecfugio"", ""impertus"", ""relinquo"", ""transulto""],
-        ""aPlace"":[""domus"", ""nidus"", ""penates"", ""asa"", ""libertas"", ""vacatio"", ""elutheria"", ""aevi"", ""discede"", ""procul""],
-        ""aTo"":[""usque"", ""usquead"", ""indu"", ""erga"", ""contra"", ""versum"", ""directio"", ""vorsum"", ""propius"", ""homius""],
-        ""aVia"":[""via"", ""limes"", ""usura"", ""fructus"", ""usus"", ""usurpatio"", ""ec"", ""per"", ""gratia"", ""propter""],
-        ""aGive"":[""tribuo"", ""indo"", ""sufficio"", ""subficio"", ""commodo"", ""affero"", ""porrigo"", ""praesto"", ""cedo"", ""fateor""],
-
-        ""sequence"":[
-        ""#aVia# - #aMethod# - #aGoal# - #aTo# - #aPlace#"",
-        ""#aGoal# - #aTo# - #aPlace# - #aVia# - #aMethod#"",
-        ""#aVia# - #aDeity# - #aMeans# - #aGive# - #aGoal#"",
-        ""#aGive# - #aPlace# - #aVia# - #aGoal# -  #aMeans#"",
-        ""#aGive# - #aGoal# - #aTo# - #aMeans# - #aPlace#"",
-        ""#aDeity# - #aGive# - #aMeans# - #aTo# - #aGoal#""]
-    }";
-
     static string eventString = @"
     {
         ""name"":[""Fayra"", ""Dave"", ""Stephen"", ""Domo"", ""Dolus"", ""Barnaby"", ""Keleven"", ""Cklive"", ""Bartholemew"", ""Susan"", ""Rickets"", ""Zachary"", ""Allura"", ""Ashton""],
@@ -78,47 +55,41 @@ public class TextSwitch : Interactable
 
         ""origin"":[""#setPronouns# #setSchool#[archivist:#name#] #sequence#""]
     }";
-    TraceryGrammar grammar = new TraceryGrammar(eventString);
-    public HistoryManager hm;
-    public GameObject UI_Panel;
-    private TopDownController player;
-    public string text;
-    public bool reading = false;
-    public override string GetDescription(){
-        return "Hold [E] to read the passage.";
-    }
 
-    public override void Interact(bool alt = false){ 
-        //Debug.Log("Reading!");
-        UI_Panel.GetComponentInChildren<TextMeshProUGUI>().text = text;
-        player.reading = true;
-    }
+    TraceryGrammar grammar = new TraceryGrammar(eventString);
+
+    public List<TextSwitch> pages;
+
 
     // On awake, use tracery to generate a text string.
     public void Awake()
     {
-        //Arcanist testa = new Arcanist(1, grammar);
-        
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>();
-        //grammar.PushAction("[arcanist:#name#]", testa.they, testa.them, testa.their, testa.theirs);
-        //text = testa.events[0];
-        //Debug.Log(grammar.Parse(text));
+        Arcanist wizard = new Arcanist(1, grammar);
 
-        //Debug.Log(testa.schoolPronoun);
-        //Debug.Log(testa.school);
-        //Debug.Log(testa.specialty);
-        
+        // TODO : push each event to a corresponding page in the world
+        //text = wizard.events[0];
 
-        //for (int i = 0; i < testa.events.Count; i++)
-        //{
-        //    Debug.Log(testa.events[i]);
-        //}
+        Debug.Log(wizard.schoolPronoun);
+        Debug.Log(wizard.school);
+        Debug.Log(wizard.specialty);
+
+
+        for (int i = 0; i < wizard.events.Count; i++)
+        {
+            Debug.Log(wizard.events[i]);
+            pages[i].text = wizard.events[i];
+        }
 
     }
-
-    public void FixedUpdate()
+    // Start is called before the first frame update
+    void Start()
     {
-        UI_Panel.SetActive(reading);
-        reading = false;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

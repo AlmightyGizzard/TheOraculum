@@ -13,6 +13,12 @@ public class TimerScript : MonoBehaviour
     float nightLength;
 
     public List<GameObject> lightsDorms;
+    // TODO: we need a set for each of the other 3 sections of the map - plus the corridors leading to the Hub. 
+    // We will also need to sort the code so that all 4 of these sections start losing light in sync with each other - 
+    // we don't want to lose light in section A, then B, then C etc. 
+
+    // Past Dom suggests that if a clever solution cannot be found, simply ensure that all light sets contain the same number of lights - that way
+    // the for loop can use 1 set for the loop without throwing errors on the others.  
 
     private void Awake()
     {
@@ -46,8 +52,6 @@ public class TimerScript : MonoBehaviour
             }
 
         }
-
-        
         
         if(countdown < 0)
         {
