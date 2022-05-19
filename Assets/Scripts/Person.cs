@@ -5,7 +5,8 @@ using UnityTracery;
 
 public abstract class Person : MonoBehaviour
 {
-    int id; 
+    int id;
+    public int age, birthYear, currentYear;
     public string name, they, them, their, theirs;
     public List<string> coreProperties;
     public List<string> events;
@@ -14,6 +15,11 @@ public abstract class Person : MonoBehaviour
         events = new List<string>();
         this.id = id;
         name = tg.ResolveSymbol("#name#");
+        // Pick a birth year - rather than invent a new system I'm just gonna go for our calendar,
+        // then add a small amount - babies don't usually remember major moments. 
+        birthYear = Random.Range(1605, 1681);
+        currentYear = birthYear + Random.Range(3, 25);
+        age = currentYear - birthYear;
         
         // Future Dom here with a bitchin' solution - use the parse command to produce a set of properties
         // together, then print each of those properties in sequence during construction and pull from
@@ -50,12 +56,22 @@ public class Arcanist : Person
         specialty = result.Split(' ')[2];
         schoolPronoun = result.Split(' ')[3];
 
-        for (int i = 0; i < numEvents; i++)
+        string birth = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #birthSequence# age:{8}", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
+        
+        events.Add(birth);
+        age += Random.Range(1, 30);
+
+        // fill the middle section with events. 
+        for (int i = 0; i < numEvents-2; i++)
         {
-            string newEvent = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}] #sequence#", name, they, them, their, theirs, school, specialty, schoolPronoun));
+            string newEvent = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #sequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
             //Debug.Log(newEvent);
             events.Add(newEvent);
+            age += Random.Range(1, 30);
         }
+
+        string death = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #deathSequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
+        events.Add(death);
 
     }
 }

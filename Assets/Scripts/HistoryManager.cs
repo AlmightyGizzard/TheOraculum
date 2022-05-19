@@ -8,17 +8,24 @@ using UnityTracery;
 
 public class HistoryManager : MonoBehaviour
 {
+    // TODO - ensure all names are of the same length - 5 letters perhaps?
+    // Prevent duplicates
+    // Connect an integer value to age and create a date tracking system
+    // Event logic - we need a separate sequence section for the first event, and a for the last event. DONE
     static string eventString = @"
     {
         ""name"":[""Fayra"", ""Dave"", ""Stephen"", ""Domo"", ""Dolus"", ""Barnaby"", ""Keleven"", ""Cklive"", ""Bartholemew"", ""Susan"", ""Rickets"", ""Zachary"", ""Allura"", ""Ashton""],
-        ""age"":[""1"", ""5"", ""10"", ""15"", ""22"", ""34"", ""46"", ""78"", ""124"", ""72"", ""61"", ""420"", ""120""],
         ""aCult"":[""Eighth Dynamic"", ""Fusiliers"", ""Satanic Panic"", ""Belieber"", ""Ivory Hollow""],
         ""anArtifact"":[""the Black Cube"", ""the Yellow Rhombus"", ""the Ebony Blade"", ""the Loom"", ""the Chair of #aDeity#"", ""the Lantern of the #aCult#""],
         ""position"":[""Archivist"", ""Librarian"", ""Lorekeeper"", ""Thaumaturgist"", ""Scholar"", ""Valedictorian""],
+        
+        ""worldState"":[""hostile"", ""verdant"", ""unforgiving"", ""rewarding"", ""encouraging"", ""luscious"", ""inspiring""],
+        ""ended"":[""poorly"", ""miserably"", ""fantastically"", ""well"", ""great"", ""uninterestingly"", ""anticlimactically"", ""climactically"", ""abysmally""],
         ""aTarget"":[""body"", ""mind"", ""self"", ""soul"", ""being""],
         ""aMeans"":[""magus"", ""medeis"", ""veneficium"", ""praecantatio"", ""devotio""],
         ""aDeity"":[""Ioun"", ""Pelor"", ""Asmodeus"", ""Mephistopheles"", ""Vecna"", ""Odin"", ""Hinch""],
         ""aMethod"":[""#aMeans#"", ""#aDeity#""],
+        
         ""aGoal"":[""subterlabor"", ""evolo"", ""fugio"", ""profugio"", ""defugio"", ""excido"", ""ecfugio"", ""impertus"", ""relinquo"", ""transulto""],
         ""aPlace"":[""domus"", ""nidus"", ""penates"", ""asa"", ""libertas"", ""vacatio"", ""elutheria"", ""aevi"", ""discede"", ""procul""],
         ""aTo"":[""usque"", ""usquead"", ""indu"", ""erga"", ""contra"", ""versum"", ""directio"", ""vorsum"", ""propius"", ""homius""],
@@ -42,15 +49,26 @@ public class HistoryManager : MonoBehaviour
             ""[school:Transmutation][specialty:communication, bodily-adaption, dunamancy, alchemy][schoolPronoun:alchemist, transmuter]"",
         ],
 
+        ""birthSequence"":[
+            ""#archivist.capitalise# was born in a #worldState# land. In the span of only a year, #heroThey# had become a powerful #schoolPronoun#, and went on to work at the Oraculum."",
+            ""In a strange, #worldState# dimension, the powerful #schoolPronoun# #name# gave birth to a child, named #archivist.capitalise#. Things ended #ended#, and the Oraculum took #heroThem# in, furthering #heroTheir# powers of #school#.""
+        ],
+
         ""sequence"":[
             ""#archivist.capitalise# was a powerful #schoolPronoun# specialising in #specialty#. #heroThey# went for a walk to see the head of #school# where #heroTheir# results were being released."",
             ""The powerful #schoolPronoun# known as #archivist.capitalise# was preparing to take on the day."",
-            ""#archivist# the #position# discovered an ancient spell - #heroThey# named it the #aVia# #aMethod# and dedicated it to the god #aDeity#"",
+            ""#archivist.capitalise# the #position# discovered an ancient spell - #heroThey# named it the '#aVia# #aMethod#' and dedicated it to the god #aDeity#"",
             ""An artifact named the #anArtifact# was recovered by #archivist#, it contained a key to unlocking the secrets of the #aTarget#"",
             ""The cult of #aDeity# known only as the #aCult# was founded by #archivist# at the age of #age#"",
-            ""Archivist #archivist# gained the title of Chief #position# after aiding #name.capitalise# and #name.capitalise# in the banishing of #aDeity# from the mortal plane."",
-            ""A new wing of the Oraculum was opened by #archivist# the #position#, dedicated to studying the arcane tome #aVia# #aPlace#""
-        ], 
+            ""Archivist #archivist.capitalise# gained the title of Chief #position# after aiding #name.capitalise# and #name.capitalise# in the banishing of #aDeity# from the mortal plane."",
+            ""A new wing of the Oraculum was opened by #archivist.capitalise# the #position#, dedicated to studying the arcane tome '#aVia# #aPlace#'""
+        ],
+
+        ""deathSequence"":[
+            ""#archivist.capitalise# is still with us, though records of #heroTheir# location and current goals are unknown. It is said they came across the #anArtifact#, and have gone into hiding to study its secrets."",
+            ""After being the head #position# for a number of years, #archivist.capitalise# sadly passed away during a #school# experiment that went frightfully wrong. Many Divination majors can still hear #heroTheir# cries echoing through the halls of the Library."",
+            ""In a move that surprised noone, #archivist.capitalise# left the Oraculum and was promptly recruited by the #aCult#, and has likely been sacrificed.""
+        ],
         
 
         ""origin"":[""#setPronouns# #setSchool#[archivist:#name#] #sequence#""]
@@ -58,27 +76,41 @@ public class HistoryManager : MonoBehaviour
 
     TraceryGrammar grammar = new TraceryGrammar(eventString);
 
+    [SerializeField]
+    private List<Arcanist> wizards;
     public List<TextSwitch> pages;
+    public int currentYear;
 
 
     // On awake, use tracery to generate a text string.
     public void Awake()
     {
-        Arcanist wizard = new Arcanist(1, grammar);
-
-        // TODO : push each event to a corresponding page in the world
-        //text = wizard.events[0];
-
-        Debug.Log(wizard.schoolPronoun);
-        Debug.Log(wizard.school);
-        Debug.Log(wizard.specialty);
-
-
-        for (int i = 0; i < wizard.events.Count; i++)
+        for(int i = 0; i < 3; i++)
         {
-            Debug.Log(wizard.events[i]);
-            pages[i].text = wizard.events[i];
+            Arcanist wizard = new Arcanist(i, grammar);
+
+            // Keeping the debugLogs, but we dont want one for every archivist.
+            if(i == 0)
+            {
+                Debug.Log(wizard.schoolPronoun);
+                Debug.Log(wizard.school);
+                Debug.Log(wizard.specialty);
+            }
+            
+            // Go through each of the Archivists life events,
+            for (int j = 0; j < wizard.events.Count; j++)
+            {
+                // Log the first Archivists events only.
+                if(i == 0)
+                {
+                    Debug.Log(wizard.events[j]);
+                }
+                // assign the event to a page somewhere in the level. 
+                // TODO - this needs to be randomised. 
+                pages[j].text = wizard.events[j];
+            }
         }
+        
 
     }
     // Start is called before the first frame update
