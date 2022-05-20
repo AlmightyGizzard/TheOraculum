@@ -75,48 +75,81 @@ public class HistoryManager : MonoBehaviour
     }";
 
     TraceryGrammar grammar = new TraceryGrammar(eventString);
+    public GameObject page;
 
     [SerializeField]
     private List<Arcanist> wizards;
+    public List<string> allEvents;
     public List<TextSwitch> pages;
     public int currentYear;
 
 
+    public void Shuffle(List<string> input)
+    {
+        // Fisher-Yates shuffle algorithm, effectively draws items at random  and assigns them positions,
+        // removing both the items available to draw and available positions as it progresses. O(n) 
+        string temp;
+        int n = input.Count;
+        for (int i = 0; i < n; i++)
+        {
+            int rPos = Random.Range(0, i);
+            temp = input[rPos];
+            input[rPos] = input[i];
+            input[i] = temp;
+        }
+    }
+
     // On awake, use tracery to generate a text string.
     public void Awake()
     {
-        for(int i = 0; i < 3; i++)
+        wizards = new List<Arcanist>();
+        for(int i = 0; i < 5; i++)
         {
-            Arcanist wizard = new Arcanist(i, grammar);
+            Arcanist wizard = new Arcanist(i, grammar, 4);
+            wizards.Add(wizard);
+            wizard.PullHistory(allEvents);
 
             // Keeping the debugLogs, but we dont want one for every archivist.
-            if(i == 0)
-            {
-                Debug.Log(wizard.schoolPronoun);
-                Debug.Log(wizard.school);
-                Debug.Log(wizard.specialty);
-            }
-            
+            //if(i == 0)
+            //{
+            //    //Debug.Log(wizard.schoolPronoun);
+            //    //Debug.Log(wizard.school);
+            //    //Debug.Log(wizard.specialty);
+            //}
+
             // Go through each of the Archivists life events,
             for (int j = 0; j < wizard.events.Count; j++)
             {
                 // Log the first Archivists events only.
-                if(i == 0)
-                {
-                    Debug.Log(wizard.events[j]);
-                }
+                //if(i == 0)
+                //{
+                //    Debug.Log(wizard.events[j]);
+                //}
+                //Debug.Log(wizard.events[j]);
                 // assign the event to a page somewhere in the level. 
                 // TODO - this needs to be randomised. 
-                pages[j].text = wizard.events[j];
+                //pages[j].text = wizard.events[j];
             }
         }
+
+        Shuffle(allEvents);
+
+
+        Vector3 testPoint = new Vector3(-6f, 0f, 0f);
+        foreach(string e in allEvents)
+        {
+            Instantiate(page);
+            page.transform.position = testPoint;
+            page.GetComponent<TextSwitch>().text = e;
+            testPoint.x -= 1.5f;
+        }
+        
         
 
     }
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame

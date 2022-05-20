@@ -35,7 +35,7 @@ public class TopDownController : MonoBehaviour
         // Weirdly this adds 1.47 to whatever interactionRange is, but hohum, it works
         // UPDATE - It's taking the worldspace position, so if player wakes at y8 it'll add that
         Vector3 p = anchor.transform.localPosition;
-        Debug.Log(p);
+        //Debug.Log(p);
         p.y = interactionRange;
         anchor.transform.localPosition = p;
     }

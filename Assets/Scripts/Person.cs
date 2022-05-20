@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityTracery;
 
-public abstract class Person : MonoBehaviour
+public abstract class Person
 {
-    int id;
+    public int id;
     public int age, birthYear, currentYear;
     public string name, they, them, their, theirs;
     public List<string> coreProperties;
@@ -41,6 +41,19 @@ public abstract class Person : MonoBehaviour
 
 
 
+    }
+
+    public string PullEvent(int index)
+    {
+        return events[index];
+    }
+
+    public void PullHistory(List<string> list)
+    {
+        foreach(string e in events)
+        {
+            list.Add(e);
+        }
     }
 }
 
