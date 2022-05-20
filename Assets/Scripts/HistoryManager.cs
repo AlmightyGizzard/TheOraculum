@@ -79,6 +79,8 @@ public class HistoryManager : MonoBehaviour
 
     [SerializeField]
     private List<Arcanist> wizards;
+    //[SerializeField]
+    public List<Vector3> positions;
     public List<string> allEvents;
     public List<TextSwitch> pages;
     public int currentYear;
@@ -116,20 +118,6 @@ public class HistoryManager : MonoBehaviour
             //    //Debug.Log(wizard.school);
             //    //Debug.Log(wizard.specialty);
             //}
-
-            // Go through each of the Archivists life events,
-            for (int j = 0; j < wizard.events.Count; j++)
-            {
-                // Log the first Archivists events only.
-                //if(i == 0)
-                //{
-                //    Debug.Log(wizard.events[j]);
-                //}
-                //Debug.Log(wizard.events[j]);
-                // assign the event to a page somewhere in the level. 
-                // TODO - this needs to be randomised. 
-                //pages[j].text = wizard.events[j];
-            }
         }
 
         Shuffle(allEvents);
@@ -138,10 +126,18 @@ public class HistoryManager : MonoBehaviour
         Vector3 testPoint = new Vector3(-6f, 0f, 0f);
         foreach(string e in allEvents)
         {
-            Instantiate(page);
-            page.transform.position = testPoint;
+            // Create a new instance of the page prefab.
+            Instantiate(page, GameObject.Find("Pages").transform);
+            
+            // Pick a random point from the list of appropriate positions,
+            // place the page at the chosen position, then remove that position
+            // from the list. 
+            int randomIndex = Random.Range(0, positions.Count);
+            page.transform.position = positions[randomIndex];
+            positions.RemoveAt(randomIndex);
+            
+            // Set the text of the page to the current event.
             page.GetComponent<TextSwitch>().text = e;
-            testPoint.x -= 1.5f;
         }
         
         

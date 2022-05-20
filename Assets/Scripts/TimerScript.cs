@@ -33,7 +33,7 @@ public class TimerScript : MonoBehaviour
         if(countdown > 0)
         {
             countdown -= Time.deltaTime;
-            double b = System.Math.Round(countdown, 2);
+            double b = System.Math.Round(countdown, 0);
             text.text = b.ToString();
 
             // We want an each light going out in sequence at a regular pace

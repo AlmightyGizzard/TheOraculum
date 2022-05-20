@@ -69,8 +69,8 @@ public class Arcanist : Person
         specialty = result.Split(' ')[2];
         schoolPronoun = result.Split(' ')[3];
 
+        // Set up a single event from the #birthSequence# set, and add it to the beginning of the list.
         string birth = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #birthSequence# age:{8}", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
-        
         events.Add(birth);
         age += Random.Range(1, 30);
 
@@ -83,6 +83,7 @@ public class Arcanist : Person
             age += Random.Range(1, 30);
         }
 
+        // Set up a single event from the #deathSequence# set, and add it to the end of the list.
         string death = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #deathSequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
         events.Add(death);
 
