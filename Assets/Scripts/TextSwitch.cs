@@ -41,7 +41,7 @@ public class TextSwitch : Interactable
     }
 
     public override void Interact(bool alt = false){ 
-        //Debug.Log("Reading!");
+        Debug.Log("Reading!");
         UI_Panel.GetComponentInChildren<TextMeshProUGUI>().text = text;
         player.reading = true;
     }
@@ -56,6 +56,6 @@ public class TextSwitch : Interactable
     public void FixedUpdate()
     {
         UI_Panel.SetActive(reading);
-        reading = false;
+        //reading = false;
     }
 }
