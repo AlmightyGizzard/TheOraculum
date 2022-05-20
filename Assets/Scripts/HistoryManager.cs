@@ -77,12 +77,13 @@ public class HistoryManager : MonoBehaviour
     TraceryGrammar grammar = new TraceryGrammar(eventString);
     public GameObject page;
 
-    [SerializeField]
-    private List<Arcanist> wizards;
-    //[SerializeField]
+    
+    public int numWizards;
+    //public List<string> names;
+    //public List<int> ids; 
+    public List<Arcanist> wizards;
     public List<Vector3> positions;
     public List<string> allEvents;
-    public List<TextSwitch> pages;
     public int currentYear;
 
 
@@ -101,56 +102,92 @@ public class HistoryManager : MonoBehaviour
         }
     }
 
-    // On awake, use tracery to generate a text string.
-    public void Awake()
+    public void GenerateWizards(List<Arcanist> wizards, int n)
     {
-        wizards = new List<Arcanist>();
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < n; i++)
         {
-            Arcanist wizard = new Arcanist(i, grammar, 4);
+            // Magic number above is the number of archivists - this needs to be switched to a variable at some point.
+            // Create a new Archivist, add them to the list and upload their life story to the allevents list.
+            Arcanist wizard = new Arcanist(wizards.Count, grammar, 4);
             wizards.Add(wizard);
-            wizard.PullHistory(allEvents);
 
-            // Keeping the debugLogs, but we dont want one for every archivist.
-            //if(i == 0)
-            //{
-            //    //Debug.Log(wizard.schoolPronoun);
-            //    //Debug.Log(wizard.school);
-            //    //Debug.Log(wizard.specialty);
-            //}
+            // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
+            //names.Add(wizard.name);
+            //ids.Add(wizard.id);
+        }
+    }
+
+    public void CheckDuplicates(List<Arcanist> wizards)
+    {
+        int duplicates = 0; 
+        for(int i = 0; i < wizards.Count; i++)
+        {
+            // Check every archivist against EVERY OTHER archivist. 
+            for (int j = 0; j < wizards.Count; j++)
+            {
+                // If their names don't match, then move on to save time. 
+                if (wizards[i].name != wizards[j].name)
+                {
+                    continue;
+                }
+                // If their ids don't match, then it's a duplicate - delete it. 
+                else if (wizards[i].id != wizards[j].id)
+                {
+                    Debug.Log(wizards[i].name + " is equal to " + wizards[j].name);
+                    wizards.RemoveAt(j);
+                    duplicates++;
+
+                    // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
+                    //names.RemoveAt(j);
+                    //ids.RemoveAt(j);
+                }
+            }
         }
 
+        if(duplicates != 0)
+        {
+            Debug.Log(duplicates + " more duplicates to go!");
+            GenerateWizards(wizards, duplicates);
+            CheckDuplicates(wizards);
+        }
+    }
+
+    public void Awake()
+    {
+        // Will make this public soon, just gotta sort duplicates first.
+        int numWizards = 5;
+        wizards = new List<Arcanist>();
+
+        // STEP ONE - CREATE THE ARCHIVISTS (YES THE NAME KEEPS CHANGING)
+        GenerateWizards(wizards, numWizards);
+        // 1.5: Check for duplicates - this function recursively checks for any duplicated names,
+        // running the GenerateWizards function for any it finds until it creates a list of unique Archivists.
+        CheckDuplicates(wizards);
+        
+        // STEP TWO - COLLATE ALL EVENTS FROM ALL ARCHIVISTS INTO ONE LIST
+        foreach(Arcanist a in wizards)
+        {
+            a.PullHistory(allEvents);
+        }
+
+        // STEP THREE - SHUFFLE THE ALLEVENTS LIST
         Shuffle(allEvents);
 
-
-        Vector3 testPoint = new Vector3(-6f, 0f, 0f);
+        // STEP FOUR - CREATE AND DISTRIBUTE HISTORICAL DOCUMENTS
         foreach(string e in allEvents)
         {
-            // Create a new instance of the page prefab.
+            // 4.1: Create a new instance of the page prefab.
             Instantiate(page, GameObject.Find("Pages").transform);
             
-            // Pick a random point from the list of appropriate positions,
+            // 4.2: Pick a random point from the list of appropriate positions,
             // place the page at the chosen position, then remove that position
             // from the list. 
             int randomIndex = Random.Range(0, positions.Count);
             page.transform.position = positions[randomIndex];
             positions.RemoveAt(randomIndex);
             
-            // Set the text of the page to the current event.
+            // 4.3: Set the text of the page to the current event.
             page.GetComponent<TextSwitch>().text = e;
         }
-        
-        
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
