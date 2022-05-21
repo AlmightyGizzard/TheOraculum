@@ -8,6 +8,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class ShadowLoader : MonoBehaviour
 {
     private TopDownController player;
+    private Light2D visionCone;
+
     private CompositeShadowCaster2D shadowGroup;
     private float cutOff = 12;
 
@@ -16,6 +18,7 @@ public class ShadowLoader : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>();
         shadowGroup = GetComponent<CompositeShadowCaster2D>();
+        
     }
 
     // Update is called once per frame
