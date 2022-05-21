@@ -8,8 +8,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class ShadowLoader : MonoBehaviour
 {
     private TopDownController player;
-    private Light2D visionCone;
 
+    private ShadowCaster2D shadowSingle;
     private CompositeShadowCaster2D shadowGroup;
     private float cutOff = 12;
 
@@ -18,16 +18,29 @@ public class ShadowLoader : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>();
         shadowGroup = GetComponent<CompositeShadowCaster2D>();
+        shadowSingle = GetComponent<ShadowCaster2D>();
         
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        shadowGroup.enabled = true;
-        if(Vector3.Distance(player.transform.position, transform.position) > cutOff)
+        if (shadowGroup != null)
         {
-            shadowGroup.enabled = false;
+            shadowGroup.enabled = true;
+            if (Vector3.Distance(player.transform.position, transform.position) > cutOff)
+            {
+                shadowGroup.enabled = false;
+            }
         }
+        else
+        {
+            shadowSingle.enabled = true;
+            if (Vector3.Distance(player.transform.position, transform.position) > cutOff)
+            {
+                shadowSingle.enabled = false;
+            }
+        }
+        
     }
 }
