@@ -13,7 +13,7 @@ public class RuneSystem : MonoBehaviour
     public List<GameObject> runes;
     public List<string> words;
     public string answer;
-    public GameObject trigger;
+    //public GameObject trigger;
     public string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Sequence sequence;
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8281113348566048882}
   - component: {fileID: 9002569168815391675}
   - component: {fileID: 4938682440349409176}
-  - component: {fileID: 8270738193189964859}
+  - component: {fileID: 7743981555838407056}
   m_Layer: 0
   m_Name: TempFurniture
   m_TagString: Untagged
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08ba5eb31c26a5947ac28c78db6b5228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8270738193189964859
+--- !u!114 &7743981555838407056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 632a938e0000000001331525e5c29099
+  m_ApplyToSortingLayers: 632a938e00000000e5c29099
   m_ShapePath:
   - {x: -0.5, y: -0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
@@ -171,4 +171,4 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1225106
+  m_InstanceId: 67436

@@ -46,6 +46,7 @@ public class TopDownController : MonoBehaviour
     void HandleInteraction(Interactable interactable)
     {
         KeyCode key = interactable.interactKey;
+        KeyCode altKey = interactable.altKey;
         
         switch (interactable.interactionType)
         {
@@ -54,7 +55,10 @@ public class TopDownController : MonoBehaviour
                 {
                     interactable.Interact();
                 }
-
+                if (Input.GetKeyDown(altKey) && altKey != KeyCode.None)
+                {
+                    interactable.Interact(true);
+                }
                 break;
             case Interactable.InteractionType.Read:
                 if (Input.GetKey(key))
@@ -109,7 +113,7 @@ public class TopDownController : MonoBehaviour
                 //Debug.Log(interactable.GetDescription());
                 // We're still going to prioritise one of the methods for UI purposes. 
                 // not sure how we'll address this from a design perspective. 
-                //interactionText.text = interactable[0].GetDescription();
+                interactionText.text = interactable[0].GetDescription();
                 successfulHit = true;
             }
         }
