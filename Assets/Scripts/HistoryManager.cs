@@ -155,7 +155,7 @@ public class HistoryManager : MonoBehaviour
     public void Awake()
     {
         // Will make this public soon, just gotta sort duplicates first.
-        int numWizards = 5;
+        
         wizards = new List<Arcanist>();
 
         // STEP ONE - CREATE THE ARCHIVISTS (YES THE NAME KEEPS CHANGING)
