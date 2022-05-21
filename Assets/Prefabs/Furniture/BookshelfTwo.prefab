@@ -109,7 +109,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46704
+  m_InstanceId: 89100
 --- !u!1 &8281113348489156883
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46712
+  m_InstanceId: 89108
 --- !u!1 &8281113348566048880
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 8281113348566048882}
   - component: {fileID: 8281113348566048881}
   - component: {fileID: 9002569168815391675}
+  - component: {fileID: 4938682440349409176}
   m_Layer: 0
   m_Name: BookshelfTwo
   m_TagString: Untagged
@@ -376,6 +377,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4938682440349409176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281113348566048880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ba5eb31c26a5947ac28c78db6b5228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutOff: 12
+  distance: 0
 --- !u!1 &8281113348842746274
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +500,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46730
+  m_InstanceId: 89126
 --- !u!1 &8281113349050405661
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +610,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46738
+  m_InstanceId: 89134
 --- !u!1 &8281113349231163832
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +720,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46746
+  m_InstanceId: 89142
 --- !u!1 &8281113349314168421
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +830,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46754
+  m_InstanceId: 89150
 --- !u!1 &8281113349365184551
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +940,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46762
+  m_InstanceId: 89158
 --- !u!1 &8281113349703142396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1050,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46770
+  m_InstanceId: 89166
 --- !u!1 &8281113349887678437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1160,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46778
+  m_InstanceId: 89174
 --- !u!1 &8281113350084641188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,4 +1270,4 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46786
+  m_InstanceId: 89182
