@@ -14,7 +14,7 @@ public class HistoryManager : MonoBehaviour
     // Event logic - we need a separate sequence section for the first event, and a for the last event. DONE
     static string eventString = @"
     {
-        ""name"":[""Fayra"", ""Dave"", ""Stephen"", ""Domo"", ""Dolus"", ""Barnaby"", ""Keleven"", ""Cklive"", ""Bartholemew"", ""Susan"", ""Rickets"", ""Zachary"", ""Allura"", ""Ashton""],
+        ""name"":[""Fayra"", ""Ethan"", ""Davey"", ""Steve"", ""Domos"", ""Dolus"", ""Gloin"", ""Thonk"", ""Klive"", ""Berta"", ""Susan"", ""Ricket"", ""Zerko"", ""Allur"", ""Ashad"", ""Tyrio""],
         ""aCult"":[""Eighth Dynamic"", ""Fusiliers"", ""Satanic Panic"", ""Belieber"", ""Ivory Hollow""],
         ""anArtifact"":[""the Black Cube"", ""the Yellow Rhombus"", ""the Ebony Blade"", ""the Loom"", ""the Chair of #aDeity#"", ""the Lantern of the #aCult#""],
         ""position"":[""Archivist"", ""Librarian"", ""Lorekeeper"", ""Thaumaturgist"", ""Scholar"", ""Valedictorian""],
@@ -77,7 +77,6 @@ public class HistoryManager : MonoBehaviour
     TraceryGrammar grammar = new TraceryGrammar(eventString);
     public GameObject page;
 
-    
     public int numWizards;
     //public List<string> names;
     //public List<int> ids; 
@@ -85,7 +84,6 @@ public class HistoryManager : MonoBehaviour
     public List<Vector3> positions;
     public List<string> allEvents;
     public int currentYear;
-
 
     public void Shuffle(List<string> input)
     {
