@@ -109,11 +109,12 @@ public class TopDownController : MonoBehaviour
                 foreach(Interactable i in interactable)
                 {
                     HandleInteraction(i);
+                    interactionText.text = i.GetDescription();
                 }
                 //Debug.Log(interactable.GetDescription());
                 // We're still going to prioritise one of the methods for UI purposes. 
                 // not sure how we'll address this from a design perspective. 
-                interactionText.text = interactable[0].GetDescription();
+                //interactionText.text = interactable[0].GetDescription();
                 successfulHit = true;
             }
         }

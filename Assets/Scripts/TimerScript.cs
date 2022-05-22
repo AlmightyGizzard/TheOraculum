@@ -14,6 +14,10 @@ public class TimerScript : MonoBehaviour
 
     public List<GameObject> lightsDorms;
     public List<GameObject> lightsLibrary;
+
+    public List<GameObject> corridorWest;
+    public List<GameObject> corridorNorth;
+    public List<GameObject> corridorEast;
     // TODO: we need a set for each of the other 3 sections of the map - plus the corridors leading to the Hub. 
     // We will also need to sort the code so that all 4 of these sections start losing light in sync with each other - 
     // we don't want to lose light in section A, then B, then C etc. 
@@ -53,6 +57,24 @@ public class TimerScript : MonoBehaviour
                     lightsLibrary[i - 1].SetActive(false);
                 }
             }
+
+            timePerLight = (nightLength / 4) / corridorWest.Count;
+
+            // Check if each light should be off. 
+            for (int i = corridorWest.Count; i > 0; i--)
+            {
+                // If the timer is less than the amount of time per light multiplied by its position in the list, 
+                // turn it off. a quarter of the nightLength is added here so that it all happens in the 6th eighth of the day,
+                // leaving a period of time where all lights are off. 
+                if (countdown < (i * timePerLight) + (nightLength / 4))
+                {
+                    corridorEast[i - 1].SetActive(false);
+                    // As you cas see, I've employed the lazy method - I don't have the time otherwise.
+                    corridorNorth[i - 1].SetActive(false);
+                    corridorWest[i - 1].SetActive(false);
+                }
+            }
+
 
         }
         
