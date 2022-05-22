@@ -8,6 +8,12 @@ public class TopDownController : MonoBehaviour
     public float baseMove = 5f;
     public float moveSpeed = 5f;
 
+    public GameObject[] light;
+    [Range(-5f, 5f)] public float safety = 1f;
+    [Range(0f, 100f)]public float panic = 0.5f;
+    public float distanceToLight;
+    public bool alive = true;
+
     public Rigidbody2D rb;
     // the anchor is a simple child of the player sprite, letting us ensure
     // the player is facing the right direction when rotating.
@@ -34,6 +40,7 @@ public class TopDownController : MonoBehaviour
     {
         anchor = GameObject.Find("Anchor");
         visionLight = transform.Find("VisionLight").GetComponent<Light2D>();
+        light = GameObject.FindGameObjectsWithTag("Light");
 
         // Weirdly this adds 1.47 to whatever interactionRange is, but hohum, it works
         // UPDATE - It's taking the worldspace position, so if player wakes at y8 it'll add that
@@ -144,6 +151,34 @@ public class TopDownController : MonoBehaviour
         visionLight.falloffIntensity = visionRange;
         // File is Light2D found in Runtime/2D
         // public float falloffIntensity { get => m_FalloffIntensity; set => m_FalloffIntensity = value; }
+
+        if (alive)
+        {
+            // Run through every light in the game, checking for distance between it and the player
+            foreach (GameObject l in light)
+            {
+                if (Vector3.Distance(l.transform.position, transform.position) <= distanceToLight)
+                {
+                    // If a light is close, add it's intensity to the safety value.
+                    safety = Mathf.Clamp(safety + (l.GetComponent<Light2D>().intensity / 10), -5f, 5f);
+                }
+            }
+
+            // Increase/Decrease the players panic based on the safety value.
+            panic = Mathf.Clamp(panic + (safety / 10), 0, 100);
+            // ...Steady decrease the safety value, so unless the light outweighs the dark, you're going down. 
+            safety = Mathf.Clamp(safety - 0.1f, -5f, 5f);
+
+            if (panic <= 0)
+            {
+                // Dead people cannot panic. 
+                alive = false;
+                Debug.Log("DEATH IN DARKNESS");
+            }
+        }
+        
+
+
 
         if (!carrying)
         {
