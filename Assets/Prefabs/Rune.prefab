@@ -270,9 +270,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionType: 0
+  interactKey: 101
+  altKey: 114
   text: {fileID: 9167153187230885065}
   glow: 0
   glowDecay: 0.001
+  system: {fileID: 0}
+  currentLetter: 0
 --- !u!61 &7210370031838533264
 BoxCollider2D:
   m_ObjectHideFlags: 0
