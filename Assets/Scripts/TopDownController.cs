@@ -8,63 +8,62 @@ using TMPro;
 
 public class TopDownController : MonoBehaviour
 {
+    // MOVEMENT + CONTROL
     public float baseMove = 5f;
     public float moveSpeed = 5f;
-
-    public GameObject[] lights;
-    [Range(-5f, 5f)] public float safety = 1f;
-    [Range(0f, 100f)]public float panic = 0.5f;
-    public float distanceToLight;
-    public bool alive = true;
-    private CircleCollider2D collider;
-    [SerializeField]
-    private CircleCollider2D safeZone;
-    public bool inZone = false;
-    public bool won = false;
-    public GameObject timer;
-
-    
+    private Vector3 startPosition;
+    private Vector2 movement;
     public Rigidbody2D rb;
     // the anchor is a simple child of the player sprite, letting us ensure
     // the player is facing the right direction when rotating.
     public GameObject anchor;
-    public Camera cam;
+    private Camera cam;
 
+    // VISION SYSTEM
+    Vector2 mousePos;
+    Light2D visionLight;
     public float visionWidth = 60;
     [Range(0f, 1f)]
     public float visionRange = 0f;
     [Range(0f, 5f)]
     public float interactionRange = 2.5f;
 
+    // PANIC SYSTEM
+    public GameObject[] lights;
+    [Range(-5f, 5f)] public float safety = 1f;
+    [Range(0f, 100f)]public float panic = 0.5f;
+    public float distanceToLight;
+    public bool alive = true;
+    private CircleCollider2D collider;
+    private GameObject safeZone;
+    public float safeRadius;
+    public bool inZone = false;
+
+    // DAYNIGHT CYCLE + WORDLE SYSTEM
+    public bool won = false;
+    public GameObject timer;
+    private int day = 1;
+    private RuneSystem guessScript;
+
     // UI ELEMENTS
+    public GameObject UIstart, UIend, UIwin, read_Panel;
     public TextMeshProUGUI interactionText;
     public TextMeshProUGUI panicText;
-    public GameObject read_Panel;
-    private int day = 1;
-    public GameObject UIstart, UIend, UIwin;
-
-    [SerializeField]
-    public RuneSystem guessScript;
+    public bool reading;
     private float startScreenCount = 5;
-    //private TMPro.TextMeshProUGUI dayText;
 
-
-    // Pretty sure neither of these are NEEDED, aside from rotation problems w carrying.
-    public bool reading = false;
-    public bool carrying = false;
+    // IRRELEVANT/DEBUGGING VARIABLES
     public bool resetTest = false;
 
-    private Vector3 startPosition;
-    Vector2 movement;
-    Vector2 mousePos;
-    Light2D visionLight;
+    
 
     private void Awake()
     {
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         anchor = GameObject.Find("Anchor");
         visionLight = transform.Find("VisionLight").GetComponent<Light2D>();
         lights = GameObject.FindGameObjectsWithTag("Light");
-        safeZone = GameObject.Find("Safe Zone").GetComponent<CircleCollider2D>();
+        safeZone = GameObject.Find("Safe Zone");
         collider = GetComponent<CircleCollider2D>();
         startPosition = transform.position;
         guessScript = GameObject.Find("Guesser").GetComponent<RuneSystem>();
@@ -220,12 +219,6 @@ public class TopDownController : MonoBehaviour
                     successfulHit = true;
                 }
             }
-
-            if (!successfulHit)
-            {
-                Debug.Log("nothing to see here");
-                
-            }
             read_Panel.SetActive(reading);
             reading = false;
         }
@@ -259,9 +252,9 @@ public class TopDownController : MonoBehaviour
             // Run through every light in the game, checking for distance between it and the player
             foreach (GameObject l in lights)
             {
-                if (Vector3.Distance(l.transform.position, transform.position) <= distanceToLight)
+                if (Vector3.Distance(l.transform.position, transform.position) <= distanceToLight && l.GetComponent<Light2D>().isActiveAndEnabled)
                 {
-                    // If a light is close, add it's intensity to the safety value.
+                    // If a light is close, add its intensity to the safety value.
                     safety = Mathf.Clamp(safety + (l.GetComponent<Light2D>().intensity / 10), -5f, 5f);
                 }
             }
@@ -288,7 +281,8 @@ public class TopDownController : MonoBehaviour
 
         if (timer.GetComponent<TimerScript>().dayOver)
         {
-            if (!collider.IsTouching(safeZone))
+            // If the player is further than a safe distance from the centre of the map, kill them. 
+            if (Vector3.Distance(transform.position, safeZone.transform.position) > safeRadius)
             {
                 alive = false;
             }

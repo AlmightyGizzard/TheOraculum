@@ -21,7 +21,7 @@ public class Carryable : Interactable
         // if item is particularly heavy, restrict rotation - reducing the player to dragging/pushing
         if(itemWeight > 2)
         {
-            player.carrying = true;
+            //player.carrying = true;
         }
         
     }
