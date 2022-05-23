@@ -11,6 +11,7 @@ public class TimerScript : MonoBehaviour
     [SerializeField]
     float countdown;
     float nightLength;
+    public bool dayOver;
 
     public List<GameObject> lightsDorms;
     public List<GameObject> lightsLibrary;
@@ -27,6 +28,12 @@ public class TimerScript : MonoBehaviour
 
     private void Awake()
     {
+        ResetTimer();
+    }
+
+    public void ResetTimer()
+    {
+        dayOver = false;
         countdown = dayLength;
         float halfday = dayLength / 2;
         nightLength = dayLength / 2;
@@ -38,8 +45,12 @@ public class TimerScript : MonoBehaviour
         if(countdown > 0)
         {
             countdown -= Time.deltaTime;
-            double b = System.Math.Round(countdown, 0);
-            text.text = b.ToString();
+            double b = System.Math.Round(countdown-nightLength, 0);
+            if(b > -1)
+            {
+                text.text = b.ToString();
+            }
+            
 
             // We want an each light going out in sequence at a regular pace
             float timePerLight = (nightLength/2) / lightsDorms.Count;
@@ -77,11 +88,11 @@ public class TimerScript : MonoBehaviour
 
 
         }
-        
-        if(countdown < 0)
+        else
         {
-            Debug.Log("Timer Expired!");
+            dayOver = true;
             text.text = "Expired!";
         }
+    
     }
 }
