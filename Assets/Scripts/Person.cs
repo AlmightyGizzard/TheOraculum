@@ -70,21 +70,23 @@ public class Arcanist : Person
         schoolPronoun = result.Split(' ')[3];
 
         // Set up a single event from the #birthSequence# set, and add it to the beginning of the list.
-        string birth = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #birthSequence# age:{8}", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
+        string birth = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}][year:{9}] Year {9}: #birthSequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age, currentYear));
         events.Add(birth);
         age += Random.Range(1, 30);
+        currentYear = birthYear + age;
 
         // fill the middle section with events. 
         for (int i = 0; i < numEvents-2; i++)
         {
-            string newEvent = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #sequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
+            string newEvent = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}][year:{9}] Year {9}: #sequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age, currentYear));
             //Debug.Log(newEvent);
             events.Add(newEvent);
             age += Random.Range(1, 30);
+            currentYear = birthYear + age;
         }
 
         // Set up a single event from the #deathSequence# set, and add it to the end of the list.
-        string death = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}] #deathSequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age));
+        string death = tg.Parse(string.Format("[archivist:{0}][heroThey:{1}][heroThem:{2}][heroTheir:{3}][heroTheirs:{4}][school:{5}][specialty:{6}][schoolPronoun:{7}][age:{8}][year:{9}] Year {9}: #deathSequence#", name, they, them, their, theirs, school, specialty, schoolPronoun, age, currentYear));
         events.Add(death);
 
     }
