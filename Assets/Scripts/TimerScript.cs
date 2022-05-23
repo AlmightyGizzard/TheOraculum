@@ -48,7 +48,7 @@ public class TimerScript : MonoBehaviour
             double b = System.Math.Round(countdown-nightLength, 0);
             if(b > -1)
             {
-                text.text = b.ToString();
+                text.text = "Daytime left: " +b.ToString();
             }
             
 

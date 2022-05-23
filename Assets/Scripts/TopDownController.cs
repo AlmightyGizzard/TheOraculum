@@ -263,7 +263,7 @@ public class TopDownController : MonoBehaviour
             panic = Mathf.Clamp(panic + (safety / 10), 0, 100);
             // ...Steady decrease the safety value, so unless the light outweighs the dark, you're going down. 
             safety = Mathf.Clamp(safety - 0.1f, -5f, 5f);
-            panicText.text = System.Math.Round(panic, 0).ToString();
+            panicText.text = "Sanity " + System.Math.Round(panic, 0).ToString() + "/100";
 
             if (panic <= 0)
             {
