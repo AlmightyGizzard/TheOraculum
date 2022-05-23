@@ -18,6 +18,7 @@ public class TopDownController : MonoBehaviour
     [SerializeField]
     private CircleCollider2D safeZone;
     public bool inZone = false;
+    public bool won = false;
     public GameObject timer;
 
     
@@ -39,7 +40,8 @@ public class TopDownController : MonoBehaviour
     public GameObject read_Panel;
     private int day = 1;
     public GameObject UIstart, UIend, UIwin;
-    [SerializeField]
+
+    private RuneSystem guessScript;
     private float startScreenCount = 5;
     //private TMPro.TextMeshProUGUI dayText;
 
@@ -62,6 +64,7 @@ public class TopDownController : MonoBehaviour
         safeZone = GameObject.Find("Safe Zone").GetComponent<CircleCollider2D>();
         collider = GetComponent<CircleCollider2D>();
         startPosition = transform.position;
+        guessScript = GameObject.Find("Guesser").GetComponent<RuneSystem>();
 
         UIstart.GetComponentInChildren<TextMeshProUGUI>().text = "Day " + day.ToString();
 
@@ -80,6 +83,7 @@ public class TopDownController : MonoBehaviour
             // Death screen, reset and stay dead...
             transform.position = startPosition;
             day = 1;
+            guessScript.guessed = false;
 
             timer.SetActive(false);
             timer.GetComponent<TimerScript>().ResetTimer();
@@ -91,6 +95,7 @@ public class TopDownController : MonoBehaviour
             resetTest = false;
             // win screen, show completion rates
             transform.position = startPosition;
+            guessScript.guessed = false;
 
             timer.SetActive(false);
             timer.GetComponent<TimerScript>().ResetTimer();
@@ -103,6 +108,7 @@ public class TopDownController : MonoBehaviour
             // Day completed, rest to next day
             transform.position = startPosition;
             day++;
+            guessScript.guessed = false;
             UIstart.GetComponentInChildren<TextMeshProUGUI>().text = "Day " + day.ToString();
 
             startScreenCount = 5;
@@ -279,6 +285,11 @@ public class TopDownController : MonoBehaviour
                 alive = false;
             }
             GameReset(!alive);
+        }
+
+        if (guessScript.win)
+        {
+            GameReset(false, true);
         }
 
         // Draw a line betwixt the anchor and the player - this is in red so we can see both the 

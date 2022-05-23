@@ -13,7 +13,8 @@ public class RuneSystem : MonoBehaviour
     public List<GameObject> runes;
     public List<string> words;
     public string answer;
-    //public GameObject trigger;
+    public bool guessed;
+    public bool win = false;
     public string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Sequence sequence;
 
@@ -63,7 +64,10 @@ public class RuneSystem : MonoBehaviour
         if (correct)
         {
             Debug.Log("Correct!!!");
+            win = true;
         }
+
+        guessed = true;
         
     }
     // Start is called before the first frame update

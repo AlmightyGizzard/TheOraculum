@@ -23,24 +23,28 @@ public class RuneScript : Interactable
 
     public override void Interact(bool alt = false)
     {
-        if (alt)
+        if (!system.guessed)
         {
-            system.Guess();
-        }
-        else
-        {
-            Debug.Log("Reading!");
-            if (currentLetter >= st.Length - 1)
+            if (alt)
             {
-                currentLetter = 0;
+                system.Guess();
             }
             else
             {
-                currentLetter++;
+                Debug.Log("Reading!");
+                if (currentLetter >= st.Length - 1)
+                {
+                    currentLetter = 0;
+                }
+                else
+                {
+                    currentLetter++;
+                }
+                text.color = Color.black;
+                text.text = st[currentLetter].ToString();
             }
-            text.color = Color.black;
-            text.text = st[currentLetter].ToString();
         }
+        
     }
 
     // Start is called before the first frame update
