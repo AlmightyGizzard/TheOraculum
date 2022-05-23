@@ -13,7 +13,7 @@ public class RuneSystem : MonoBehaviour
     public List<GameObject> runes;
     public List<string> words;
     public string answer;
-    public bool guessed;
+    public bool guessed = false;
     public bool win = false;
     public string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Sequence sequence;
@@ -30,6 +30,7 @@ public class RuneSystem : MonoBehaviour
             result.length++;
             g.GetComponentInChildren<TextMeshPro>().SetText(c.ToString());
 
+            g.GetComponent<RuneScript>().currentLetter = st.IndexOf(c);
             Debug.Log(c);
         }
         return result;

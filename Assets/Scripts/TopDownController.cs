@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using TMPro;
+
 
 public class TopDownController : MonoBehaviour
 {
@@ -41,7 +43,8 @@ public class TopDownController : MonoBehaviour
     private int day = 1;
     public GameObject UIstart, UIend, UIwin;
 
-    private RuneSystem guessScript;
+    [SerializeField]
+    public RuneSystem guessScript;
     private float startScreenCount = 5;
     //private TMPro.TextMeshProUGUI dayText;
 
@@ -67,6 +70,7 @@ public class TopDownController : MonoBehaviour
         guessScript = GameObject.Find("Guesser").GetComponent<RuneSystem>();
 
         UIstart.GetComponentInChildren<TextMeshProUGUI>().text = "Day " + day.ToString();
+        interactionText.text = "";
 
         // Weirdly this adds 1.47 to whatever interactionRange is, but hohum, it works
         // UPDATE - It's taking the worldspace position, so if player wakes at y8 it'll add that
@@ -151,6 +155,7 @@ public class TopDownController : MonoBehaviour
                 throw new System.Exception("Unsupported interaction type");
         }
     }
+    // Update is called once per frame
     void Update()
     {
         if(startScreenCount > 0)
@@ -206,8 +211,9 @@ public class TopDownController : MonoBehaviour
                     {
                         HandleInteraction(i);
                         interactionText.text = i.GetDescription();
+                        Debug.Log(i.GetDescription());
                     }
-                    //Debug.Log(interactable.GetDescription());
+                    
                     // We're still going to prioritise one of the methods for UI purposes. 
                     // not sure how we'll address this from a design perspective. 
                     //interactionText.text = interactable[0].GetDescription();
@@ -215,14 +221,16 @@ public class TopDownController : MonoBehaviour
                 }
             }
 
-            if (!successfulHit) interactionText.text = "";
+            if (!successfulHit)
+            {
+                Debug.Log("nothing to see here");
+                
+            }
             read_Panel.SetActive(reading);
             reading = false;
         }
     }
-        
-
-    // Update is called once per frame
+    // FixedUpdate is uh, different
     void FixedUpdate()
     {
         if (alive)
@@ -291,6 +299,8 @@ public class TopDownController : MonoBehaviour
         {
             GameReset(false, true);
         }
+
+        interactionText.text = "";
 
         // Draw a line betwixt the anchor and the player - this is in red so we can see both the 
         // line determining where the player is looking and the line checking for collisions.

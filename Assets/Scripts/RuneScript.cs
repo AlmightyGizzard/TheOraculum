@@ -10,10 +10,12 @@ public class RuneScript : Interactable
     public float glowDecay = 0.05f;
     public RuneSystem system;
     string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public int currentLetter; 
+    public int currentLetter;
 
+    public Vector3 position;
     public override string GetDescription()
     {
+        Debug.Log("Close to it..");
         if(glow <= 0.1f)
         {
             glow += glowDecay;
@@ -23,26 +25,24 @@ public class RuneScript : Interactable
 
     public override void Interact(bool alt = false)
     {
-        if (!system.guessed)
+        Debug.Log("Interact!");
+        if (alt)
         {
-            if (alt)
+            system.Guess();
+        }
+        else
+        {
+            Debug.Log("Reading!");
+            if (currentLetter >= st.Length - 1)
             {
-                system.Guess();
+                currentLetter = 0;
             }
             else
             {
-                Debug.Log("Reading!");
-                if (currentLetter >= st.Length - 1)
-                {
-                    currentLetter = 0;
-                }
-                else
-                {
-                    currentLetter++;
-                }
-                text.color = Color.black;
-                text.text = st[currentLetter].ToString();
+                currentLetter++;
             }
+            text.color = Color.black;
+            text.text = st[currentLetter].ToString();
         }
         
     }
@@ -54,6 +54,8 @@ public class RuneScript : Interactable
         st = system.st;
         char value = char.Parse(text.text);
         currentLetter = st.IndexOf(value);
+
+        position.y += 0.15f;
     }
     // Update is called once per frame
     void FixedUpdate()
