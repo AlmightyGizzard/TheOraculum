@@ -15,7 +15,6 @@ public class RuneScript : Interactable
     public Vector3 position;
     public override string GetDescription()
     {
-        Debug.Log("Close to it..");
         if(glow <= 0.1f)
         {
             glow += glowDecay;
@@ -26,24 +25,29 @@ public class RuneScript : Interactable
     public override void Interact(bool alt = false)
     {
         Debug.Log("Interact!");
-        if (alt)
+        // Once the player has made a guess, the runes should lock.
+        if (!system.guessed)
         {
-            system.Guess();
-        }
-        else
-        {
-            Debug.Log("Reading!");
-            if (currentLetter >= st.Length - 1)
+            if (alt)
             {
-                currentLetter = 0;
+                system.Guess();
             }
             else
             {
-                currentLetter++;
+                Debug.Log("Reading!");
+                if (currentLetter >= st.Length - 1)
+                {
+                    currentLetter = 0;
+                }
+                else
+                {
+                    currentLetter++;
+                }
+                text.color = Color.black;
+                text.text = st[currentLetter].ToString();
             }
-            text.color = Color.black;
-            text.text = st[currentLetter].ToString();
         }
+        
         
     }
 

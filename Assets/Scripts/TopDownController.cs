@@ -294,7 +294,7 @@ public class TopDownController : MonoBehaviour
             GameReset(false, true);
         }
 
-        interactionText.text = "";
+        //interactionText.text = "";
 
         // Draw a line betwixt the anchor and the player - this is in red so we can see both the 
         // line determining where the player is looking and the line checking for collisions.
