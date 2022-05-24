@@ -12,6 +12,7 @@ public abstract class Person
     public List<string> events;
 
     public Person(int id, TraceryGrammar tg, int numEvents=5){
+        
         events = new List<string>();
         this.id = id;
         name = tg.ResolveSymbol("#name#");
@@ -67,6 +68,16 @@ public class Arcanist : Person
         {
             for(int i = 0; i < numEvents-1; i++)
             {
+                name = id.ToString();
+
+                // this is the key somehow. You need to pull together the written evens such that you can 
+                string eventSet = "[#setPronouns#] #heroThey# #heroThem# #heroTheir# #heroTheirs#";
+                string result = tg.Parse(pronounSet);
+                they = result.Split(' ')[1];
+                them = result.Split(' ')[2];
+                their = result.Split(' ')[3];
+                theirs = result.Split(' ')[4];
+
                 events.Add(tg.Parse("#sequence#"));
                 age += Random.Range(1, 30);
                 currentYear = birthYear + age;

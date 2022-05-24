@@ -15,7 +15,11 @@ public class HistoryManager : MonoBehaviour
 
     static string handcraftString = @"
     {
-        ""sequence"":[""test does this work haha""],
+        ""setArchivist"":[
+            ""[name:Fayra][event1:did thing][event2:did second thing][event3:third thing]"",
+            ""[name:Jane][event1:her][event2:her][event3:hers]"",
+        ],
+        ""sequence"":[""setArchivist""],
         ""origin"":[""#sequence#""]
 
     }";
