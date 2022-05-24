@@ -12,6 +12,13 @@ public class HistoryManager : MonoBehaviour
     // Prevent duplicates
     // Connect an integer value to age and create a date tracking system
     // Event logic - we need a separate sequence section for the first event, and a for the last event. DONE
+
+    static string handcraftString = @"
+    {
+        ""sequence"":[""test does this work haha""],
+        ""origin"":[""#sequence#""]
+
+    }";
     static string eventString = @"
     {
         ""name"":[""Fayra"", ""Ethan"", ""Davey"", ""Steve"", ""Domos"", ""Dolus"", ""Gloin"", ""Thonk"", ""Klive"", ""Berta"", ""Susan"", ""Ricky"", ""Zerko"", ""Allur"", ""Ashad"", ""Tyrio""],
@@ -84,7 +91,8 @@ public class HistoryManager : MonoBehaviour
         ""origin"":[""#setPronouns# #setSchool#[archivist:#name#] #sequence#""]
     }";
 
-    TraceryGrammar grammar = new TraceryGrammar(eventString);
+    TraceryGrammar grammar;
+    public bool pcg;
     public GameObject page;
 
     public int numWizards;
@@ -116,7 +124,8 @@ public class HistoryManager : MonoBehaviour
         {
             // Magic number above is the number of archivists - this needs to be switched to a variable at some point.
             // Create a new Archivist, add them to the list and upload their life story to the allevents list.
-            Arcanist wizard = new Arcanist(wizards.Count, grammar, 4);
+
+            Arcanist wizard = new Arcanist(wizards.Count, grammar, 4, pcg);
             wizards.Add(wizard);
 
             // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
@@ -162,8 +171,15 @@ public class HistoryManager : MonoBehaviour
 
     public void Awake()
     {
-        // Will make this public soon, just gotta sort duplicates first.
-        
+        if (pcg)
+        {
+            grammar = new TraceryGrammar(eventString);
+        }
+        else
+        {
+            grammar = new TraceryGrammar(handcraftString);
+        }
+
         wizards = new List<Arcanist>();
 
         // STEP ONE - CREATE THE ARCHIVISTS (YES THE NAME KEEPS CHANGING)
