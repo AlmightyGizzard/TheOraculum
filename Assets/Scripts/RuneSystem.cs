@@ -11,6 +11,8 @@ public class Sequence
 public class RuneSystem : MonoBehaviour
 {
     public List<GameObject> runes;
+    public HistoryManager hm;
+    public List<string> possibleNames;
     public List<string> words;
     public string answer;
     public bool guessed = false;
@@ -20,6 +22,7 @@ public class RuneSystem : MonoBehaviour
 
     public Sequence GenerateSequence()
     {
+        hm = GameObject.FindGameObjectWithTag("HistoryManager").GetComponent<HistoryManager>();
         Sequence result = new Sequence();
         result.length = 0;
         result.symbols = new List<char>();
@@ -31,7 +34,7 @@ public class RuneSystem : MonoBehaviour
             g.GetComponentInChildren<TextMeshPro>().SetText(c.ToString());
 
             g.GetComponent<RuneScript>().currentLetter = st.IndexOf(c);
-            Debug.Log(c);
+            //Debug.Log(c);
         }
         return result;
     }
@@ -75,6 +78,10 @@ public class RuneSystem : MonoBehaviour
     void Start()
     {
         sequence = GenerateSequence();
-        answer = words[Random.Range(0, words.Count)];
+        foreach (Arcanist a in hm.wizards)
+        {
+            possibleNames.Add(a.name);
+        }
+        answer = possibleNames[Random.Range(0, possibleNames.Count)];
     }
 }

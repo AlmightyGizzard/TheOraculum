@@ -36,9 +36,9 @@ public class HistoryManager : MonoBehaviour
         ""Ciffy4"":[""Year 1391: After hearing of the Averian massacre by an unknown vampiric incursion, Ciffy became bent on leaving the Oraculum to retake her homeland. The Oraculum at large were upset by this, but ultimately allowed her to leave - although a group of students will have to be given resources to track and observe her in the coming years in order to finish their paper on the effects of combining arcane and divine energy within single individuals.""],
 
         ""Vince1"":[""Year 1009: a 22 year old student named Vince arrived at the Oraculum, claiming to be a student of a sister college that wished to transfer - as 'this building has more resources for my area of study'. Naturally this was met with heavy skepticism, as there is no known 'sister college' in any of the Oraculums archives. But after Divination specialists examined the individual they found all the student claimed to be true. This was deemed strange enough to warrant accepting the boy into the Oraculum on the notion that he be heavily observed.""],
-        ""Vince2"":[""Year 1093: After a relatively uneventful time at the Oraculum, Vince left to pursue""],
-        ""Vince2"":[""""],
-        ""Vince3"":[""""],
+        ""Vince2"":[""Year 1093: After a relatively uneventful time at the Oraculum, Vince left to pursue his own goals - many of which were deemed deeply unethical by the current leading Necromancers. It is expected many of these works will end with his death, but an obseration team will be assembled in case any of his experimentations prove... fruitful.""],
+        ""Vince3"":[""It has been over 100 years since Vince was last considered by the Oraculum. Shortly after his leaving, a single half-elven skull was found at the door of one of the Divination Archmages. It was later determined by forensics to be the skull of one of the observation team dispatched to keep an eye on Vince. No reports were ever recieved from said team, nor any updates on their whereabouts. A day after the skull had been identified, many members of the Divination school began to suffer from intense headaches, and since then have been unable to locate Vince or divine any mention of him in both astral and material spaces.""],
+        ""Vince4"":[""Year 1264: A figure known as 'Vincent' has been identified as entering into a previously abandoned dungeon several miles due west of Averia, near the northern coast of the Mainland. It has been hypothesised by multiple senior members of staff that this figure could be the missing Vince, particularly as a plague of headaches have returned to those with divination capability. An eye will be kept on the figure for the time being, although so long as no harm comes to the Oraculum, it may be safer to leave them alone.""],
 
         ""setArchivist"":[
             ""[name:Fayra][event1:#Fayra1#][event2:#Fayra2#][event3:#Fayra3#][event4:#Fayra4#]"",
@@ -124,12 +124,12 @@ public class HistoryManager : MonoBehaviour
     }";
 
     TraceryGrammar grammar;
-    public bool pcg;
     public GameObject page;
 
+    private bool pcg;
     public int numWizards;
     public List<string> names;
-    public List<int> ids; 
+    //public List<int> ids; 
     public List<Arcanist> wizards;
     public List<Vector3> positions;
     public List<string> allEvents;
@@ -162,7 +162,7 @@ public class HistoryManager : MonoBehaviour
 
             // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
             names.Add(wizard.name);
-            ids.Add(wizard.id);
+            //ids.Add(wizard.id);
         }
     }
 
@@ -180,18 +180,17 @@ public class HistoryManager : MonoBehaviour
                     continue;
                 }
                 // If their ids don't match, then it's a duplicate - delete it. 
-                else if (wizards[i].id != wizards[j].id)
+                else if (i != j)
                 {
                     Debug.Log(wizards[i].name + " is equal to " + wizards[j].name);
-                    Debug.Log(wizards[i].id + " is not equal to " + wizards[j].id);
-                    Debug.Log("number of wizards is: " + wizards.Count);
-                    wizards.RemoveAt(j);
+                    wizards.Remove(wizards[j]);
+                    names.Remove(names[j]);
+                    j--;
                     duplicates++;
 
                     // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
-                    names.RemoveAt(j);
-                    Debug.Log("After removal, number of wizards is: " + wizards.Count);
-                    ids.RemoveAt(j);
+                    
+                    //ids.Remove(ids[j]);
                 }
             }
         }
@@ -206,6 +205,11 @@ public class HistoryManager : MonoBehaviour
 
     public void Awake()
     {
+        for(int x = 0; x < 5; x++)
+        {
+            pcg = Random.Range(0, 2) != 0;
+        }
+
         if (pcg)
         {
             grammar = new TraceryGrammar(eventString);
@@ -219,6 +223,12 @@ public class HistoryManager : MonoBehaviour
 
         // STEP ONE - CREATE THE ARCHIVISTS (YES THE NAME KEEPS CHANGING)
         GenerateWizards(wizards, numWizards);
+        
+        foreach (Arcanist a in wizards)
+        {
+            Debug.Log(a.name);
+        }
+
         // 1.5: Check for duplicates - this function recursively checks for any duplicated names,
         // running the GenerateWizards function for any it finds until it creates a list of unique Archivists.
         CheckDuplicates(wizards);
