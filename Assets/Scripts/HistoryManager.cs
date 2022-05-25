@@ -25,14 +25,27 @@ public class HistoryManager : MonoBehaviour
         ""Thonk3"":[""By 1337, Thonk had grown in much power. Adventuring gave him many opportunities to learn about lots of different forms of magic. Though he obsessed over mind magic the most. With this though came small parts of insanity as the stresses of adventuring took their toll. One day Thonk messed up while on an adventure, hurting his friends and fellow adventures in the process. He tried to fix the situation by altering their memories with his new power. He was unsuccessful and expelled from the party for doing such an awful thing.""],
         ""Thonk4"":[""In 1380, word of his mind altering antics reached the Oraculum and he was expelled. Thonk however did not care, he only cared about his friends and Meve. Not long after the incident he decided to go on a journey of repentance in hope to make up with his friends. On this journey he does dream that he will, in his wanderings, find a cure for his beloved Meve. He is yet to do so.""],
 
+        ""Felix1"":[""Born in 1307, Felix was not a happy man. Already a gambler by his teenage years, soon he took to other vices, eventually falling into such a pit of personal problems that he swindled his own family to further his distractions from life. This would not end well, and landed him in the debt of a cosmic entity known as the Red Wyrm.""],
+        ""Felix2"":[""Eventually, this debt became overbearing. Despite accruing many strange powers from the Wyrm, designed to aid in paying back this debt, Felix needed help, and in 1334 turned to the Oraculum to become a subject of study, acting as an assistant to many of the Archmages where he could.""],
+        ""Felix3"":[""Year 1336: Felix was held in the lower dungeons of the Oraculum for attempts to sell access to restricted books to students whilst collecting coin from book returnals as 'late fees'. A full evaluation of his usefulness to the Oraculum will be conducted to decide whether or not he is worth the administrative troubles of keeping him on site.""],
+        ""Felix4"":[""Year 1402: After the corridor providing access to his cell was lost, Felix was assumed to have been consumed by the building in early 1337. However, recently students embarking on a study of the Oraculums lower bowels have encountered a broken window to the outside on the same level as the cell. Hemomancers concluded that the blood contained sufficient divine energy to conclude that it belongs to Felix. His whereabouts and condition remain unknown.""],
+
+        ""Ciffy1"":[""In late 1354, a group of holy folk from Averia arrived at the Oraculum. They were carrying a child which they believed to have been blessed by their God, however had little actual experience in the raising of a child with actual provable divine ability. Provided that study and recording of the child could be done in tandem, the Oraculum agreed to aid the villagers in ensuring the child was brought up safely.""],
+        ""Ciffy2"":[""Year 1369: The child is able to demonstrate considerable abilities, such that their use to the Oraculum has become a major priority. Tensions are rising between the Averian contacts and the archivists assigned to Ciffy, to the point where she herself has become irritated with the Averians for inconveniencing her learning of both divine and arcane ways.""],
+        ""Ciffy3"":[""Year 1377: With aid from Archmage Dolus, the child has begun the process of cutting off her ancestral home, to the extent where measures were taken to fake her death should the Averians prove too zealous in their beliefs. ""],
+        ""Ciffy4"":[""Year 1391: After hearing of the Averian massacre by an unknown vampiric incursion, Ciffy became bent on leaving the Oraculum to retake her homeland. The Oraculum at large were upset by this, but ultimately allowed her to leave - although a group of students will have to be given resources to track and observe her in the coming years in order to finish their paper on the effects of combining arcane and divine energy within single individuals.""],
+
+        ""Vince1"":[""Year 1009: a 22 year old student named Vince arrived at the Oraculum, claiming to be a student of a sister college that wished to transfer - as 'this building has more resources for my area of study'. Naturally this was met with heavy skepticism, as there is no known 'sister college' in any of the Oraculums archives. But after Divination specialists examined the individual they found all the student claimed to be true. This was deemed strange enough to warrant accepting the boy into the Oraculum on the notion that he be heavily observed.""],
+        ""Vince2"":[""Year 1093: After a relatively uneventful time at the Oraculum, Vince left to pursue""],
+        ""Vince2"":[""""],
+        ""Vince3"":[""""],
 
         ""setArchivist"":[
             ""[name:Fayra][event1:#Fayra1#][event2:#Fayra2#][event3:#Fayra3#][event4:#Fayra4#]"",
             ""[name:Thonk][event1:#Thonk1#][event2:#Thonk2#][event3:#Thonk3#][event4:#Thonk4#]"",
-            ""[name:Dave][event1:did thing][event2:did second thing][event3:did 3rd thing][event4:fourth thing]"",
-            ""[name:Jane][event1:her][event2:her][event3:hers][event4:fo thing]"",
-            ""[name:Felix][event1:Had money][event2:was arse][event3:lost family][event4:joined tiamat]"",
-            ""[name:Jefff][event1:ev1][event2:ev2][event3:ev3][event4:ev4]""
+            ""[name:Ciffy][event1:#Ciffy1#][event2:#Ciffy2#][event3:#Ciffy3#][event4:#Ciffy4#]"",
+            ""[name:Felix][event1:#Felix1#][event2:#Felix2#][event3:#Felix3#][event4:#Felix4#]"",
+            ""[name:Vince][event1:#Vince1#][event2:#Vince2#][event3:#Vince3#][event4:#Vince4#]""
         ],
         ""sequence"":[""#event1#""],
         ""origin"":[""#sequence#""]
