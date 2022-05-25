@@ -66,19 +66,29 @@ public class Arcanist : Person
     {
         if (!pcg)
         {
-            for(int i = 0; i < numEvents-1; i++)
+            string eventSet = "[#setArchivist#] #event1#\n#event2#\n#event3#\n#event4#\n#name#";
+            string parsedData = tg.Parse(eventSet);
+
+
+            name = parsedData.Split('\n')[4];
+
+            // Alternate method for a more linear generation
+            //events.Add(parsedData.Split('\n')[0]);
+            //age += Random.Range(1, 30);
+            //currentYear = birthYear + age;
+            //events.Add(parsedData.Split('\n')[1]);
+            //age += Random.Range(1, 30);
+            //currentYear = birthYear + age;
+            //events.Add(parsedData.Split('\n')[2]);
+            //age += Random.Range(1, 30);
+            //currentYear = birthYear + age;
+            //events.Add(parsedData.Split('\n')[3]);
+
+            // Method closer to that of the PCG - would have problems if introduced to a generator of more events than have been written
+            for (int i = 0; i < numEvents; i++)
             {
-                name = id.ToString();
 
-                // this is the key somehow. You need to pull together the written evens such that you can 
-                string eventSet = "[#setPronouns#] #heroThey# #heroThem# #heroTheir# #heroTheirs#";
-                string result = tg.Parse(pronounSet);
-                they = result.Split(' ')[1];
-                them = result.Split(' ')[2];
-                their = result.Split(' ')[3];
-                theirs = result.Split(' ')[4];
-
-                events.Add(tg.Parse("#sequence#"));
+                events.Add(parsedData.Split('\n')[i]);
                 age += Random.Range(1, 30);
                 currentYear = birthYear + age;
             }

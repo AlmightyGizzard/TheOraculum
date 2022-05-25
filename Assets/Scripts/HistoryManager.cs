@@ -15,11 +15,26 @@ public class HistoryManager : MonoBehaviour
 
     static string handcraftString = @"
     {
+        ""Fayra1"":[""Born in 1307, Fayra was an unwanted child, given up for adoption soon into her life. Found wandering the ceaseless bookshelves of the Oraculum as a young child, she was taken in by an Oraculum archmage""],
+        ""Fayra2"":[""In 1329, Fayra joined an adventuring party as a part-timer to root out corruption within the City. After having a close call with death after a myconid haymaker, she vowed never to be that close to death again and resigned to her studies.""],
+        ""Fayra3"":[""In 1334, Fayra stumbled upon a cryptic leathery tome, adorned with a serpentine tongue. This tome albeit garish was occult and at midnight, would cover its bare pages in strange messages written in blood. The entity and Fayra formed a close bond, assisting on her desire for immortality.""],
+        ""Fayra4"":[""In 1365, Fayra was wisened, older, and had committed an unthinkable number of heinous deeds for the entity. Her practices were 'cruel' or 'barbaric' in the eyes of those who could not see the truth. Fayra was expelled from the Oraculum for her actions, but some say she still roams the world to this day.""],
+        
+        ""Thonk1"":[""Born in 1309, Thonk was a young happy chap. He wasn't adventurous and never left his home village. He fell in love with a girl called Meve, who he was due to marry. Unfortunately however she developed a strange curse breaking apart her mind.  Thonk decided to leave his village and travel to find a cure for this curse. He joined the Oraculum hoping they would have an answer.""],
+        ""Thonk2"":[""In 1336, Thonk was recruited by a necromancer, who was a fellow member of the Oraculum. This master promised much, including an understanding of the mind which he would teach Thonk. But the fates had other ideas. His master was killed by a mercenary. This mercenary was then killed in turn by an adventuring group, who Thonk then joined.""],
+        ""Thonk3"":[""By 1337, Thonk had grown in much power. Adventuring gave him many opportunities to learn about lots of different forms of magic. Though he obsessed over mind magic the most. With this though came small parts of insanity as the stresses of adventuring took their toll. One day Thonk messed up while on an adventure, hurting his friends and fellow adventures in the process. He tried to fix the situation by altering their memories with his new power. He was unsuccessful and expelled from the party for doing such an awful thing.""],
+        ""Thonk4"":[""In 1380, word of his mind altering antics reached the Oraculum and he was expelled. Thonk however did not care, he only cared about his friends and Meve. Not long after the incident he decided to go on a journey of repentance in hope to make up with his friends. On this journey he does dream that he will, in his wanderings, find a cure for his beloved Meve. He is yet to do so.""],
+
+
         ""setArchivist"":[
-            ""[name:Fayra][event1:did thing][event2:did second thing][event3:third thing]"",
-            ""[name:Jane][event1:her][event2:her][event3:hers]"",
+            ""[name:Fayra][event1:#Fayra1#][event2:#Fayra2#][event3:#Fayra3#][event4:#Fayra4#]"",
+            ""[name:Thonk][event1:#Thonk1#][event2:#Thonk2#][event3:#Thonk3#][event4:#Thonk4#]"",
+            ""[name:Dave][event1:did thing][event2:did second thing][event3:did 3rd thing][event4:fourth thing]"",
+            ""[name:Jane][event1:her][event2:her][event3:hers][event4:fo thing]"",
+            ""[name:Felix][event1:Had money][event2:was arse][event3:lost family][event4:joined tiamat]"",
+            ""[name:Jefff][event1:ev1][event2:ev2][event3:ev3][event4:ev4]""
         ],
-        ""sequence"":[""setArchivist""],
+        ""sequence"":[""#event1#""],
         ""origin"":[""#sequence#""]
 
     }";
@@ -100,8 +115,8 @@ public class HistoryManager : MonoBehaviour
     public GameObject page;
 
     public int numWizards;
-    //public List<string> names;
-    //public List<int> ids; 
+    public List<string> names;
+    public List<int> ids; 
     public List<Arcanist> wizards;
     public List<Vector3> positions;
     public List<string> allEvents;
@@ -133,8 +148,8 @@ public class HistoryManager : MonoBehaviour
             wizards.Add(wizard);
 
             // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
-            //names.Add(wizard.name);
-            //ids.Add(wizard.id);
+            names.Add(wizard.name);
+            ids.Add(wizard.id);
         }
     }
 
@@ -155,12 +170,15 @@ public class HistoryManager : MonoBehaviour
                 else if (wizards[i].id != wizards[j].id)
                 {
                     Debug.Log(wizards[i].name + " is equal to " + wizards[j].name);
+                    Debug.Log(wizards[i].id + " is not equal to " + wizards[j].id);
+                    Debug.Log("number of wizards is: " + wizards.Count);
                     wizards.RemoveAt(j);
                     duplicates++;
 
                     // Names+ids for debugging, since the Arcanist class cannot fit on the Unity Editor.
-                    //names.RemoveAt(j);
-                    //ids.RemoveAt(j);
+                    names.RemoveAt(j);
+                    Debug.Log("After removal, number of wizards is: " + wizards.Count);
+                    ids.RemoveAt(j);
                 }
             }
         }
