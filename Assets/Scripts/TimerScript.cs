@@ -37,6 +37,19 @@ public class TimerScript : MonoBehaviour
         countdown = dayLength;
         float halfday = dayLength / 2;
         nightLength = dayLength / 2;
+
+        for (int i = 0; i < lightsDorms.Count; i++)
+        {
+            lightsDorms[i].SetActive(true);
+            lightsLibrary[i].SetActive(true);
+        }
+
+        for (int i = 0; i < corridorEast.Count; i++)
+        {
+            corridorEast[i].SetActive(true);
+            corridorNorth[i].SetActive(true);
+            corridorWest[i].SetActive(true);
+        }
     }
 
     // Update is called once per frame
