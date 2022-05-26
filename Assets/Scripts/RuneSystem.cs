@@ -82,6 +82,6 @@ public class RuneSystem : MonoBehaviour
         {
             possibleNames.Add(a.name);
         }
-        answer = possibleNames[Random.Range(0, possibleNames.Count)];
+        answer = possibleNames[Random.Range(0, possibleNames.Count)].ToUpper();
     }
 }
